@@ -43,7 +43,29 @@ const (
 	jsonFormat    = "json"
 )
 
-// Options contains configuration items related to log.
+/*
+Options contains configuration items related to log.
+
+Options 各配置项含义如下：
+
+development：是否是开发模式。如果是开发模式，会对 DPanicLevel 进行堆栈跟踪。
+
+name：Logger 的名字。
+
+disable-caller：是否开启 caller，如果开启会在日志中显示调用日志所在的文件、函数和行号。
+
+disable-stacktrace：是否在 Panic 及以上级别禁止打印堆栈信息。
+
+enable-color：是否开启颜色输出，true，是；false，否。
+
+level：日志级别，优先级从低到高依次为：Debug, Info, Warn, Error, Dpanic, Panic, Fatal。
+
+format：支持的日志输出格式，目前支持 Console 和 JSON 两种。Console 其实就是 Text 格式。
+
+output-paths：支持输出到多个输出，用逗号分开。支持输出到标准输出（stdout）和文件。
+
+error-output-paths：zap 内部 (非业务) 错误日志输出路径，多个输出，用逗号分开。
+*/
 type Options struct {
 	OutputPaths       []string `json:"output-paths"       mapstructure:"output-paths"`
 	ErrorOutputPaths  []string `json:"error-output-paths" mapstructure:"error-output-paths"`
