@@ -69,23 +69,25 @@ func NewAnalytics(options *AnalyticsOptions, store storage.AnalyticsHandler) *An
 
 	recordsChan := make(chan *AnalyticsRecord, recordsBufferSize)
 
-	return &Analytics{
+	analytics = &Analytics{
 		store:                      store,
 		poolSize:                   ps,
 		recordsChan:                recordsChan,
 		workerBufferSize:           workerBufferSize,
 		recordsBufferFlushInterval: options.FlushInterval,
 	}
+
+	return analytics
 }
 
 // GetAnalytics returns the existed analytics instance.
+// Need to initialize `analytics` instance before calling GetAnalytics.
 func GetAnalytics() *Analytics {
 	return analytics
 }
 
 // Start start the analytics service.
 func (r *Analytics) Start() {
-	analytics = r
 	r.store.Connect()
 
 	// start worker pool
@@ -94,9 +96,6 @@ func (r *Analytics) Start() {
 		r.poolWg.Add(1)
 		go r.recordWorker()
 	}
-
-	// stop analytics workers
-	go r.Stop()
 }
 
 // Stop stop the analytics service.
@@ -172,7 +171,7 @@ func (r *Analytics) recordWorker() {
 	}
 }
 
-// DurationToMillisecond convert time duration type to floag64.
+// DurationToMillisecond convert time duration type to float64.
 func DurationToMillisecond(d time.Duration) float64 {
 	return float64(d) / 1e6
 }

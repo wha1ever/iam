@@ -7,6 +7,7 @@ require (
 	github.com/MakeNowJust/heredoc/v2 v2.0.1
 	github.com/appleboy/gin-jwt/v2 v2.6.4
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
+	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/buger/jsonparser v1.1.1
 	github.com/cpuguy83/go-md2man/v2 v2.0.1
 	github.com/dgraph-io/ristretto v0.1.0
@@ -24,13 +25,13 @@ require (
 	github.com/gosuri/uitable v0.0.4
 	github.com/influxdata/influxdb v1.9.4
 	github.com/jinzhu/gorm v1.9.16
-	github.com/jinzhu/now v1.1.2
+	github.com/jinzhu/now v1.1.3
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/likexian/host-stat-go v0.0.0-20190516151207-c9cf36dd6ce9
-	github.com/marmotedu/api v1.0.3
-	github.com/marmotedu/component-base v1.0.1
+	github.com/marmotedu/api v1.6.2
+	github.com/marmotedu/component-base v1.6.2
 	github.com/marmotedu/errors v1.0.2
-	github.com/marmotedu/marmotedu-sdk-go v1.0.3
+	github.com/marmotedu/marmotedu-sdk-go v1.6.2
 	github.com/mattn/go-isatty v0.0.14
 	github.com/mitchellh/go-wordwrap v1.0.1
 	github.com/mitchellh/mapstructure v1.4.2
@@ -64,7 +65,7 @@ require (
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.2
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 	gorm.io/driver/mysql v1.1.2
-	gorm.io/gorm v1.21.15
+	gorm.io/gorm v1.22.4
 	k8s.io/klog v1.0.0
 )
 
@@ -107,7 +108,7 @@ require (
 	github.com/marmotedu/log v0.0.1 // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-runewidth v0.0.10 // indirect
-	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
+	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
@@ -143,6 +144,8 @@ require (
 	google.golang.org/genproto v0.0.0-20210828152312-66f60bf46e71 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.63.2 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gotest.tools/v3 v3.0.3 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )

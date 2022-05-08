@@ -46,6 +46,11 @@ install.git-chglog:
 install.github-release:
 	@$(GO) install github.com/github-release/github-release@latest
 
+.PHONY: install.coscli
+install.coscli:
+	@wget -q https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux -O ${HOME}/bin/coscli
+	@chmod +x ${HOME}/bin/coscli
+
 .PHONY: install.coscmd
 install.coscmd:
 	@if which pip &>/dev/null; then pip install coscmd; else pip3 install coscmd; fi

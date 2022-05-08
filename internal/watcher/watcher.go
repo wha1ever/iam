@@ -39,13 +39,12 @@ func newWatchJob(redisOptions *genericoptions.RedisOptions, watcherOptions *opti
 		Password: redisOptions.Password,
 	})
 
+	rs := redsync.New(goredis.NewPool(client))
+
 	cron := cron.New(
 		cron.WithSeconds(),
 		cron.WithChain(cron.SkipIfStillRunning(logger), cron.Recover(logger)),
 	)
-
-	pool := goredis.NewPool(client)
-	rs := redsync.New(pool)
 
 	return &watchJob{
 		Cron:   cron,
@@ -57,6 +56,7 @@ func newWatchJob(redisOptions *genericoptions.RedisOptions, watcherOptions *opti
 func (w *watchJob) addWatchers() *watchJob {
 	for name, watcher := range watcher.ListWatchers() {
 		// log with `{"watcher": "counter"}` key-value to distinguish which watcher the log comes from.
+		//nolint: golint,staticcheck
 		ctx := context.WithValue(context.Background(), log.KeyWatcherName, name)
 
 		if err := watcher.Init(ctx, w.rs.NewMutex(name, redsync.WithExpiry(2*time.Hour)), w.config); err != nil {
