@@ -7,7 +7,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/dgrijalva/jwt-go/v4"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func main() {
 		}
 
 		return []byte("key1"), nil
-	}, jwt.WithAudience("iam.authz.marmotedu.com"))
+	})
 
 	if err != nil || !parsedT.Valid {
 		fmt.Println("token valid failed", err)

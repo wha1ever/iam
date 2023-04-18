@@ -1,6 +1,6 @@
 module github.com/marmotedu/iam
 
-go 1.17
+go 1.18
 
 require (
 	github.com/AlekSi/pointer v1.1.0
@@ -11,7 +11,6 @@ require (
 	github.com/buger/jsonparser v1.1.1
 	github.com/cpuguy83/go-md2man/v2 v2.0.1
 	github.com/dgraph-io/ristretto v0.1.0
-	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 	github.com/fatih/color v1.13.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gin-contrib/cors v1.3.1
@@ -23,6 +22,7 @@ require (
 	github.com/go-redis/redis/v7 v7.4.1
 	github.com/go-redis/redis/v8 v8.11.4
 	github.com/go-redsync/redsync/v4 v4.4.2
+	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/golang/mock v1.6.0
 	github.com/gosuri/uitable v0.0.4
 	github.com/influxdata/influxdb v1.9.4
@@ -30,7 +30,7 @@ require (
 	github.com/jinzhu/now v1.1.3
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/likexian/host-stat-go v0.0.0-20190516151207-c9cf36dd6ce9
-	github.com/marmotedu/api v1.6.2
+	github.com/marmotedu/api v1.6.3
 	github.com/marmotedu/component-base v1.6.2
 	github.com/marmotedu/errors v1.0.2
 	github.com/marmotedu/marmotedu-sdk-go v1.6.2
@@ -52,20 +52,26 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.9.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 	github.com/tpkeeper/gin-dump v1.0.1
+	github.com/vinllen/mgo v0.0.0-20220329061231-e5ecea62f194
 	github.com/vmihailenco/msgpack/v5 v5.3.4
 	github.com/zsais/go-gin-prometheus v0.1.0
 	go.etcd.io/etcd/api/v3 v3.5.0
 	go.etcd.io/etcd/client/v3 v3.5.0
+	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/zap v1.19.1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/text v0.3.7
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
-	golang.org/x/tools v0.1.7
+	golang.org/x/tools v0.1.11
 	google.golang.org/grpc v1.41.0
+<<<<<<< HEAD
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.2
+=======
+>>>>>>> f39d4105e563c01fb4869bbaf1b19f5afa944400
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 	gorm.io/driver/mysql v1.1.2
 	gorm.io/gorm v1.22.4
@@ -135,13 +141,10 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
-	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
-	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
+	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
+	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
 	golang.org/x/sys v0.0.0-20211020064051-0ec99a608a1b // indirect
-	golang.org/x/text v0.3.6 // indirect
-	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20210828152312-66f60bf46e71 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/ini.v1 v1.63.2 // indirect

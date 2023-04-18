@@ -24,5 +24,6 @@ iam::release::verify_prereqs
 iam::build::build_command
 iam::release::package_tarballs
 iam::release::updload_tarballs
-iam::release::github_release
-iam::release::generate_changelog
+git push origin ${VERSION}
+#iam::release::github_release
+#iam::release::generate_changelog
