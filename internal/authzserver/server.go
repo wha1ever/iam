@@ -32,6 +32,7 @@ type authzServer struct {
 	redisOptions     *genericoptions.RedisOptions
 	genericAPIServer *genericapiserver.GenericAPIServer
 	analyticsOptions *analytics.AnalyticsOptions
+	redisCancelFunc  context.CancelFunc
 }
 
 type preparedAuthzServer struct {
@@ -70,17 +71,23 @@ func (s *authzServer) PrepareRun() preparedAuthzServer {
 
 	initRouter(s.genericAPIServer.Engine)
 
-	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
-		s.genericAPIServer.Close()
-
-		return nil
-	}))
-
 	return preparedAuthzServer{s}
 }
 
 // Run start to run AuthzServer.
 func (s preparedAuthzServer) Run() error {
+	// in order to ensure that the reported data is not lost,
+	// please ensure the following graceful shutdown sequence
+	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
+		s.genericAPIServer.Close()
+		if s.analyticsOptions.Enable {
+			analytics.GetAnalytics().Stop()
+		}
+		s.redisCancelFunc()
+
+		return nil
+	}))
+
 	// start shutdown managers
 	if err := s.gs.Start(); err != nil {
 		log.Fatalf("start shutdown manager failed: %s", err.Error())
@@ -128,9 +135,9 @@ func (s *authzServer) buildStorageConfig() *storage.Config {
 	}
 }
 
-//nolint: govet
 func (s *authzServer) initialize() error {
 	ctx, cancel := context.WithCancel(context.Background())
+	s.redisCancelFunc = cancel
 
 	// keep redis connected
 	go storage.ConnectToRedis(ctx, s.buildStorageConfig())
@@ -148,18 +155,7 @@ func (s *authzServer) initialize() error {
 		analyticsStore := storage.RedisCluster{KeyPrefix: RedisKeyPrefix}
 		analyticsIns := analytics.NewAnalytics(s.analyticsOptions, &analyticsStore)
 		analyticsIns.Start()
-		s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
-			analyticsIns.Stop()
-
-			return nil
-		}))
 	}
-
-	s.gs.AddShutdownCallback(shutdown.ShutdownFunc(func(string) error {
-		cancel()
-
-		return nil
-	}))
 
 	return nil
 }

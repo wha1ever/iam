@@ -26,7 +26,7 @@ install.swagger:
 
 .PHONY: install.golangci-lint
 install.golangci-lint:
-	@$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.43.0
+	@$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.46.2
 	@golangci-lint completion bash > $(HOME)/.golangci-lint.bash
 	@if ! grep -q .golangci-lint.bash $(HOME)/.bashrc; then echo "source \$$HOME/.golangci-lint.bash" >> $(HOME)/.bashrc; fi
 
@@ -45,6 +45,11 @@ install.git-chglog:
 .PHONY: install.github-release
 install.github-release:
 	@$(GO) install github.com/github-release/github-release@latest
+
+.PHONY: install.coscli
+install.coscli:
+	@wget -q https://github.com/tencentyun/coscli/releases/download/v0.10.2-beta/coscli-linux -O ${HOME}/bin/coscli
+	@chmod +x ${HOME}/bin/coscli
 
 .PHONY: install.coscmd
 install.coscmd:
@@ -109,3 +114,7 @@ install.codegen:
 .PHONY: install.kube-score
 install.kube-score:
 	@$(GO) install github.com/zegl/kube-score/cmd/kube-score@latest
+
+.PHONY: install.go-gitlint
+install.go-gitlint:
+	@$(GO) install github.com/marmotedu/go-gitlint/cmd/go-gitlint@latest

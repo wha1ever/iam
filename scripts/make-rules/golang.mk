@@ -7,7 +7,7 @@
 #
 
 GO := go
-GO_SUPPORTED_VERSIONS ?= 1.13|1.14|1.15|1.16|1.17
+GO_SUPPORTED_VERSIONS ?= 1.13|1.14|1.15|1.16|1.17|1.18|1.19|1.20
 GO_LDFLAGS += -X $(VERSION_PACKAGE).GitVersion=$(VERSION) \
 	-X $(VERSION_PACKAGE).GitCommit=$(GIT_COMMIT) \
 	-X $(VERSION_PACKAGE).GitTreeState=$(GIT_TREE_STATE) \
@@ -16,7 +16,7 @@ ifneq ($(DLV),)
 	GO_BUILD_FLAGS += -gcflags "all=-N -l"
 	LDFLAGS = ""
 endif
-GO_BUILD_FLAGS += -tags=jsoniter -ldflags "$(GO_LDFLAGS)"
+GO_BUILD_FLAGS += -ldflags "$(GO_LDFLAGS)"
 
 ifeq ($(GOOS),windows)
 	GO_OUT_EXT := .exe

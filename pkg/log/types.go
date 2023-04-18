@@ -23,19 +23,12 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-// LogContextKey defines keys used by `github.com/marmotedu/iam/pkg/log`.
-type LogContextKey string
-
 // Defines common log fields.
 const (
-	KeyRequestID   LogContextKey = "requestID"
-	KeyUsername    LogContextKey = "username"
-	KeyWatcherName LogContextKey = "watcher"
+	KeyRequestID   string = "requestID"
+	KeyUsername    string = "username"
+	KeyWatcherName string = "watcher"
 )
-
-func (l LogContextKey) String() string {
-	return string(l)
-}
 
 // Field is an alias for the field structure in the underlying log frame.
 type Field = zapcore.Field

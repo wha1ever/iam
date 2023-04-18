@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `policy`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `policy` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `instanceID` varchar(20) DEFAULT NULL,
+  `instanceID` varchar(32) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `username` varchar(255) NOT NULL,
   `policyShadow` longtext DEFAULT NULL,
@@ -38,7 +38,6 @@ CREATE TABLE `policy` (
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_name_username` (`name`,`username`),
   UNIQUE KEY `instanceID_UNIQUE` (`instanceID`),
   KEY `fk_policy_user_idx` (`username`),
   CONSTRAINT `fk_policy_user` FOREIGN KEY (`username`) REFERENCES `user` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -81,7 +80,7 @@ DROP TABLE IF EXISTS `policy_audit`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `policy_audit` (
   `id` bigint(20) unsigned NOT NULL,
-  `instanceID` varchar(20) DEFAULT NULL,
+  `instanceID` varchar(32) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `username` varchar(255) NOT NULL,
   `policyShadow` longtext DEFAULT NULL,
@@ -112,7 +111,7 @@ DROP TABLE IF EXISTS `secret`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `secret` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `instanceID` varchar(20) DEFAULT NULL,
+  `instanceID` varchar(32) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `username` varchar(255) NOT NULL,
   `secretID` varchar(36) NOT NULL,
@@ -123,7 +122,6 @@ CREATE TABLE `secret` (
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uniq_name_username` (`name`,`username`),
   UNIQUE KEY `instanceID_UNIQUE` (`instanceID`),
   KEY `fk_secret_user_idx` (`username`),
   CONSTRAINT `fk_secret_user` FOREIGN KEY (`username`) REFERENCES `user` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -148,14 +146,16 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `instanceID` varchar(20) DEFAULT NULL,
+  `instanceID` varchar(32) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
+  `status` int(1) DEFAULT 1 COMMENT '1:可用，0:不可用',
   `nickname` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `email` varchar(256) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `isAdmin` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '1: administrator\\\\n0: non-administrator',
   `extendShadow` longtext DEFAULT NULL,
+  `loginedAt` timestamp NULL DEFAULT NULL COMMENT 'last login time',
   `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
   `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
@@ -170,7 +170,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (0,'user-lingfei','admin','admin','$2a$10$WnQD2DCfWVhlGmkQ8pdLkesIGPf9KJB7N1mhSOqulbgN7ZMo44Mv2','admin@foxmail.com','1812884xxxx',1,'{}','2021-05-27 10:01:40','2021-05-05 21:13:14');
+INSERT INTO `user` VALUES (1,'user-lingfei','admin',1,'admin','$2a$10$WnQD2DCfWVhlGmkQ8pdLkesIGPf9KJB7N1mhSOqulbgN7ZMo44Mv2','admin@foxmail.com','1812884xxxx',1,'{}',now(),'2021-05-27 10:01:40','2021-05-05 21:13:14');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;

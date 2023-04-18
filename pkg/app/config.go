@@ -44,6 +44,7 @@ func addConfigFlag(basename string, fs *pflag.FlagSet) {
 
 			if names := strings.Split(basename, "-"); len(names) > 1 {
 				viper.AddConfigPath(filepath.Join(homedir.HomeDir(), "."+names[0]))
+				viper.AddConfigPath(filepath.Join("/etc", names[0]))
 			}
 
 			viper.SetConfigName(basename)
@@ -57,8 +58,7 @@ func addConfigFlag(basename string, fs *pflag.FlagSet) {
 }
 
 func printConfig() {
-	keys := viper.AllKeys()
-	if len(keys) > 0 {
+	if keys := viper.AllKeys(); len(keys) > 0 {
 		fmt.Printf("%v Configuration items:\n", progressMessage)
 		table := uitable.New()
 		table.Separator = " "

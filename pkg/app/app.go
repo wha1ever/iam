@@ -211,8 +211,10 @@ func (a *App) buildCommand() {
 		addConfigFlag(a.basename, namedFlagSets.FlagSet("global"))
 	}
 	globalflag.AddGlobalFlags(namedFlagSets.FlagSet("global"), cmd.Name())
+	// add new global flagset to cmd FlagSet
+	cmd.Flags().AddFlagSet(namedFlagSets.FlagSet("global"))
 
-	addNamedCmdTemplate(&cmd, namedFlagSets)
+	addCmdTemplate(&cmd, namedFlagSets)
 	a.cmd = &cmd
 }
 
@@ -292,7 +294,7 @@ func printWorkingDir() {
 	log.Infof("%v WorkingDir: %s", progressMessage, wd)
 }
 
-func addNamedCmdTemplate(cmd *cobra.Command, namedFlagSets cliflag.NamedFlagSets) {
+func addCmdTemplate(cmd *cobra.Command, namedFlagSets cliflag.NamedFlagSets) {
 	usageFmt := "Usage:\n  %s\n"
 	cols, _, _ := term.TerminalSize(cmd.OutOrStdout())
 	cmd.SetUsageFunc(func(cmd *cobra.Command) error {

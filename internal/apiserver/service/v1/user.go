@@ -83,6 +83,7 @@ func (u *userService) List(ctx context.Context, opts metav1.ListOptions) (*v1.Us
 				Email:       user.Email,
 				Phone:       user.Phone,
 				TotalPolicy: policies.TotalCount,
+				LoginedAt:   user.LoginedAt,
 			})
 		}(user)
 	}
@@ -98,7 +99,6 @@ func (u *userService) List(ctx context.Context, opts metav1.ListOptions) (*v1.Us
 		return nil, err
 	}
 
-	// infos := make([]*v1.User, 0)
 	infos := make([]*v1.User, 0, len(users.Items))
 	for _, user := range users.Items {
 		info, _ := m.Load(user.ID)
